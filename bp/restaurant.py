@@ -43,7 +43,7 @@ def get_restaurant():
         restaurant_id = int(restaurant_id)
         # get restaurant's info
         sql_get_restaurant = "\
-            SELECT id, name, `desc`, zip, tel, website, location \
+            SELECT id, name, `desc`, zip, tel, website, location, img \
             FROM restaurant \
             WHERE id = {}".format(
                 restaurant_id
@@ -80,6 +80,7 @@ def get_restaurant():
             "tel": result_get_restaurant[4],
             "website": result_get_restaurant[5],
             "location": result_get_restaurant[6],
+            "img_url": result_get_restaurant[7],
             "rating": rating
         }
         return jsonify(ResMsg(data=result, code=ResponseCode.SUCCESS, msg=ResponseMessage.SUCCESS).data)
