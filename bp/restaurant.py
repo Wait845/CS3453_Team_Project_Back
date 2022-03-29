@@ -1,7 +1,10 @@
+from email.mime import base
 from flask import Blueprint, request, jsonify
 from response import *
 from dao import DataAccess
 from utils import utils
+import base64
+
 
 restaurant = Blueprint("restaurant", __name__)
 
@@ -28,6 +31,8 @@ def get_restaurant():
 
         result = []
         for restaurant in result_get_restaurant:
+            restaurant[3] = base64.b64decode(restaurant[3])
+            restaurant[3] = restaurant[3].decode("utf-8")
             result.append({
                 "id": restaurant[0],
                 "name": restaurant[1],
@@ -96,6 +101,7 @@ def new_restaurant():
     if (name and desc and zip and tel and img and location) == None:
         return jsonify(ResMsg(data="", code=ResponseCode.FAIL, msg=ResponseMessage.FAIL).data)
 
+    img = base64.b64encode(img.encode("utf-8"))
     sql_new_restaurant = "\
         INSERT INTO restaurant \
         SET name = '{}', \
