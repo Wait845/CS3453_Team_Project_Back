@@ -1,13 +1,15 @@
 from flask import Flask
 from bp import user, restaurant, review
 import config
+from flask_cors import CORS
+
 
 app = Flask(__name__)
 app.register_blueprint(user.user, url_prefix="/api/user")
 app.register_blueprint(restaurant.restaurant, url_prefix="/api/restaurant")
 app.register_blueprint(review.review, url_prefix="/api/review")
 
-
+cors = CORS(app)
 
 @app.route("/", methods=["POST"])
 def test():
