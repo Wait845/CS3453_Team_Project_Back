@@ -65,9 +65,10 @@ def new_review():
         return jsonify(ResMsg(data="", code=ResponseCode.UNLOGIN, msg=ResponseMessage.UNLOGIN).data)
 
     user_id = result_get_user[0][0]
-    restaurant = request.form.get("restaurant")
-    rating = request.form.get("rating")
-    comment = request.form.get("comment")
+    request_json = request.get_json()
+    restaurant = request_json("restaurant")
+    rating = request_json("rating")
+    comment = request_json("comment")
 
     # new review
     sql_new_review = "\

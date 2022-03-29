@@ -8,8 +8,9 @@ user = Blueprint("user", __name__)
 
 @user.route("/login", methods=["POST"], strict_slashes=False)
 def user_login():
-    name = request.form.get("name", None)
-    password = request.form.get("password", None)
+    request_json = request.get_json()
+    name = request_json.get("name", None)
+    password = request_json.get("password", None)
 
     if (name and password) == None:
         return jsonify(ResMsg(data="", code=ResponseCode.FAIL, msg=ResponseMessage.FAIL).data)
@@ -44,8 +45,9 @@ def user_login():
 
 @user.route("/register", methods=["POST"], strict_slashes=False)
 def user_register():
-    name = request.form.get("name", None)
-    password = request.form.get("password", None)
+    request_json = request.get_json()
+    name = request_json.get("name", None)
+    password = request_json.get("password", None)
     if (name and password) == None:
         return jsonify(ResMsg(data="", code=ResponseCode.FAIL, msg=ResponseMessage.FAIL).data)
 
