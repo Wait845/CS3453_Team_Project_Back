@@ -1,3 +1,4 @@
+from re import U
 from flask import Blueprint, request, jsonify
 from response import *
 from dao import DataAccess
@@ -21,8 +22,10 @@ def get_review():
     restaurant_id = int(restaurant_id)
 
     sql_get_review = "\
-        SELECT user, comment, rating, post_time \
-        FROM review \
+        SELECT name, comment, rating, post_time \
+        FROM review r \
+        INNER JOIN user u \
+        ON r.user = u.id \
         WHERE restaurant = {}".format(
             restaurant_id
         )
