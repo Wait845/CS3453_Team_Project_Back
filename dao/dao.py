@@ -37,6 +37,25 @@ class DataAccess():
             if self.cursor:
                 self.cursor.close()
 
+    def execute_p(self, sql, p):
+        if self.conn.open:
+            self.cursor = self.conn.cursor()
+        else:
+            return None
+
+        try:
+            self.cursor.execute(sql, p)
+            result = self.cursor.fetchall()
+            self.conn.commit()
+            return result
+        except Exception:
+            self.conn.rollback()
+            print(traceback.format_exc())
+            return None
+        finally:
+            if self.cursor:
+                self.cursor.close()
+
     def __del__(self):
         if self.conn.open:
             self.conn.close()
