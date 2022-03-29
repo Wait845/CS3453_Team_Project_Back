@@ -85,13 +85,13 @@ def get_restaurant():
 
 def new_restaurant():
     request_json = request.get_json()
-    name = request_json("name", None)
-    desc = request_json("desc", None)
-    zip = request_json("zip", None)
-    tel = request_json("tel", None)
-    website = request_json("website", "")
-    img = request_json("img", None)
-    location = request_json("location", None)
+    name = request_json.get("name", None)
+    desc = request_json.get("desc", None)
+    zip = request_json.get("zip", None)
+    tel = request_json.get("tel", None)
+    website = request_json.get("website", "")
+    img = request_json.get("img", None)
+    location = request_json.get("location", None)
 
     if (name and desc and zip and tel and img and location) == None:
         return jsonify(ResMsg(data="", code=ResponseCode.FAIL, msg=ResponseMessage.FAIL).data)

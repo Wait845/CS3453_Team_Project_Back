@@ -66,9 +66,9 @@ def new_review():
 
     user_id = result_get_user[0][0]
     request_json = request.get_json()
-    restaurant = request_json("restaurant")
-    rating = request_json("rating")
-    comment = request_json("comment")
+    restaurant = request_json.get("restaurant")
+    rating = request_json.get("rating")
+    comment = request_json.get("comment")
 
     # new review
     sql_new_review = "\
